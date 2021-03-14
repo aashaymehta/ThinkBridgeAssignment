@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationContract\ShopBridge.Inventory.ApplicationContract.csproj" />
+    <ProjectReference Include="..\DomainModel\ShopBridge.Inventory.DomainModel.csproj" />
+    <ProjectReference Include="..\PersistenceContract\ShopBridge.Inventory.PersistenceContract.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationContract\ShopBridge.Inventory.ApplicationContract.csproj" />
+    <ProjectReference Include="..\Application\ShopBridge.Inventory.Application.csproj" />
+    <ProjectReference Include="..\PersistenceContract\ShopBridge.Inventory.PersistenceContract.csproj" />
+    <ProjectReference Include="..\Persistence\ShopBridge.Inventory.Persistence.csproj" />
+  </ItemGroup>
+
+
+</Project>
