@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShopBridge.Inventory.ApplicationContract;
 using ShopBridge.Inventory.DomainModel;
@@ -60,13 +59,13 @@ namespace ShopBridge.Inventory.Application
                 Price = request.Item.Price,
                 Id = request.Item.Id
             };
-            var addItemResult = await _inventoryRepository.AddItem(itemToBeAdded);
+            await _inventoryRepository.AddItem(itemToBeAdded);
             return new AddItemResponse();
         }
 
         public async Task<RemoveItemResponse> RemoveItem(string itemId)
         {
-            var result = await _inventoryRepository.RemoveItem(itemId);
+            await _inventoryRepository.RemoveItem(itemId);
             return new RemoveItemResponse();
         }
     }
