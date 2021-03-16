@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShopBridge.Inventory.ApplicationContract;
 using ShopBridge.Inventory.DomainModel;
@@ -22,9 +23,9 @@ namespace ShopBridge.Inventory.Application
             {
                 itemsDto.Add(new ItemDto()
                 {
-                    Id = item.Id,
+                    Id = item.Id.ToString(),
                     Name = item.Name,
-                    Price = item.Price,
+                    Price = item.Price.ToString(),
                     Description = item.Description
                 });
             }
@@ -42,9 +43,9 @@ namespace ShopBridge.Inventory.Application
             {
                 Item = new ItemDto()
                 {
-                    Id = item.Id,
+                    Id = item.Id.ToString(),
                     Name = item.Name,
-                    Price = item.Price,
+                    Price = item.Price.ToString(),
                     Description = item.Description
                 }
             };
@@ -56,8 +57,8 @@ namespace ShopBridge.Inventory.Application
             {
                 Name = request.Item.Name,
                 Description = request.Item.Description,
-                Price = request.Item.Price,
-                Id = request.Item.Id
+                Price = Convert.ToDecimal(request.Item.Price),
+                // Id = request.Item.Id
             };
             await _inventoryRepository.AddItem(itemToBeAdded);
             return new AddItemResponse();

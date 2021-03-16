@@ -25,6 +25,10 @@ namespace ShopBridge.Inventory.Service
             var inventoryRepository = new InventoryRepository();
             services.Add(new ServiceDescriptor(typeof(IInventoryRepository), inventoryRepository));
             services.Add(new ServiceDescriptor(typeof(IInventoryApplication), new InventoryApplication(inventoryRepository)));
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
             services.AddControllers();
         }
 
@@ -35,6 +39,7 @@ namespace ShopBridge.Inventory.Service
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("ApiCorsPolicy");
 
             app.UseHttpsRedirection();
 

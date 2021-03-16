@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ShopBridge.Inventory.DomainModel;
@@ -20,7 +21,7 @@ namespace ShopBridge.Inventory.Persistence
         {
             using (var inventoryDataContext = new InventoryDataContext())
             {
-                return await inventoryDataContext.Items.FirstOrDefaultAsync(x => x.Id == itemId);
+                return await inventoryDataContext.Items.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(itemId));
             }
         }
 
@@ -38,7 +39,7 @@ namespace ShopBridge.Inventory.Persistence
         {
             using (var inventoryDataContext = new InventoryDataContext())
             {
-                var itemToBeDeleted = await inventoryDataContext.Items.FirstOrDefaultAsync(x => x.Id == itemId);
+                var itemToBeDeleted = await inventoryDataContext.Items.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(itemId));
                 if (itemToBeDeleted != null)
                 {
                     inventoryDataContext.Items.Remove(itemToBeDeleted);
