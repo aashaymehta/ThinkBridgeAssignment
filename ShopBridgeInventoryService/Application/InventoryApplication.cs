@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using ShopBridge.Inventory.ApplicationContract;
 using ShopBridge.Inventory.DomainModel;
@@ -17,57 +18,128 @@ namespace ShopBridge.Inventory.Application
         }
         public async Task<GetItemsResponse> GetAllItems()
         {
-            var items = await _inventoryRepository.GetAllItems();
-            var itemsDto = new List<ItemDto>();
-            foreach (var item in items)
+            try
             {
-                itemsDto.Add(new ItemDto()
+                var items = await _inventoryRepository.GetAllItems();
+                var itemsDto = new List<ItemDto>();
+                foreach (var item in items)
                 {
-                    Id = item.Id.ToString(),
-                    Name = item.Name,
-                    Price = item.Price.ToString(),
-                    Description = item.Description
-                });
+                    itemsDto.Add(new ItemDto()
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        Price = item.Price.ToString(CultureInfo.InvariantCulture),
+                        Description = item.Description
+                    });
+                }
+
+                return new GetItemsResponse()
+                {
+                    Items = itemsDto
+                };
             }
-            return new GetItemsResponse()
+            catch (Exception ex)
             {
-                Items = itemsDto
-            };
+                return new GetItemsResponse()
+                {
+                    ErrorMessage = ex.Message
+                };
+            }
+            
         }
 
         public async Task<GetItemByIdResponse> GetItemById(string itemId)
         {
-            var item = await _inventoryRepository.GetItemById(itemId);
-            
-            return new GetItemByIdResponse()
+            try
             {
-                Item = new ItemDto()
+                if (string.IsNullOrEmpty(itemId) || !int.TryParse(itemId, out _))
                 {
-                    Id = item.Id.ToString(),
-                    Name = item.Name,
-                    Price = item.Price.ToString(),
-                    Description = item.Description
+                    throw new Exception("Item id is not valid !");
                 }
-            };
+                var item = await _inventoryRepository.GetItemById(itemId);
+
+                return new GetItemByIdResponse()
+                {
+                    Item = new ItemDto()
+                    {
+                        Id = item.Id.ToString(),
+                        Name = item.Name,
+                        Price = item.Price.ToString(CultureInfo.InvariantCulture),
+                        Description = item.Description
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new GetItemByIdResponse()
+                {
+                    ErrorMessage = ex.Message
+                };
+            }
         }
 
         public async Task<AddItemResponse> AddItem(AddItemRequest request)
         {
-            var itemToBeAdded = new Item()
+            try
             {
-                Name = request.Item.Name,
-                Description = request.Item.Description,
-                Price = Convert.ToDecimal(request.Item.Price),
-                // Id = request.Item.Id
-            };
-            await _inventoryRepository.AddItem(itemToBeAdded);
-            return new AddItemResponse();
+                Validate(request);
+                var itemToBeAdded = new Item()
+                {
+                    Name = request.Item.Name,
+                    Description = request.Item.Description,
+                    Price = Convert.ToDecimal(request.Item.Price)
+                };
+                var addedItemId = await _inventoryRepository.AddItem(itemToBeAdded);
+                return new AddItemResponse()
+                {
+                    AddedItemId = addedItemId
+                };
+            }
+            catch (Exception ex)
+            {
+                return new AddItemResponse()
+                {
+                    ErrorMessage = ex.Message
+                };
+            }
+        }
+
+        private static void Validate(AddItemRequest request)
+        {
+            if (request == null || request.Item == null ||
+                string.IsNullOrEmpty(request.Item.Name) ||
+                string.IsNullOrEmpty(request.Item.Name) ||
+                string.IsNullOrEmpty(request.Item.Price) ||
+                string.IsNullOrEmpty(request.Item.Description))
+            {
+                throw new Exception("Missing params in AddItemRequest !");
+            }
+
+            if (!decimal.TryParse(request.Item.Price, out _))
+            {
+                throw new Exception("Item price is not valid !");
+            }
         }
 
         public async Task<RemoveItemResponse> RemoveItem(string itemId)
         {
-            await _inventoryRepository.RemoveItem(itemId);
-            return new RemoveItemResponse();
+            try
+            {
+                if (string.IsNullOrEmpty(itemId) || !int.TryParse(itemId, out _))
+                {
+                    throw new Exception("Item id is not valid !");
+                }
+
+                await _inventoryRepository.RemoveItem(itemId);
+                return new RemoveItemResponse();
+            }
+            catch (Exception ex)
+            {
+                return new RemoveItemResponse()
+                {
+                    ErrorMessage = ex.Message
+                };
+            }
         }
     }
 }

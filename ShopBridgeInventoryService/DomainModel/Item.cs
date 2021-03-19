@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ShopBridge.Inventory.DomainModel
+﻿namespace ShopBridge.Inventory.DomainModel
 {
     public class Item
     {

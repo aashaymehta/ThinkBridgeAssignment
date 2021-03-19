@@ -25,13 +25,13 @@ namespace ShopBridge.Inventory.Persistence
             }
         }
 
-        public async Task AddItem(Item item)
+        public async Task<int> AddItem(Item item)
         {
             using (var inventoryDataContext = new InventoryDataContext())
             {
                 await inventoryDataContext.Items.AddAsync(item);
                 await inventoryDataContext.SaveChangesAsync();
-                await Task.FromResult(0);
+                return item.Id;
             }
         }
 

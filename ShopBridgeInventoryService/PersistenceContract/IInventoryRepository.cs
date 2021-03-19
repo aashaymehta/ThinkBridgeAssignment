@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShopBridge.Inventory.DomainModel;
 
@@ -12,11 +10,7 @@ namespace ShopBridge.Inventory.PersistenceContract
 
         Task<Item> GetItemById(string itemId);
 
-        //Task<Item> AddItem(Item request);
-
-        //Task<Item> RemoveItem(string itemId);
-
-        Task AddItem(Item request);
+        Task<int> AddItem(Item request);
 
         Task RemoveItem(string itemId);
     }

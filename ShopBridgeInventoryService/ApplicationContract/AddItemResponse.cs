@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShopBridge.Inventory.ApplicationContract
+﻿namespace ShopBridge.Inventory.ApplicationContract
 {
     public class AddItemResponse: InventoryServiceResponse
     {
+        public int AddedItemId { get; set; }
     }
 }
