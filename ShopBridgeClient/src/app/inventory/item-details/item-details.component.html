@@ -1,0 +1,21 @@
+<div class="center">
+    <h4>Item details!</h4>
+    <table *ngIf="!error && item">
+        <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>{{item.name}}</td>
+            <td><a [routerLink]="['/item', item.id]">{{item.id}}</a></td>
+            <td>{{item.description}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+    </table>
+    <div *ngIf="error">{{error}}</div>
+    <div>
+        <button class="button" (click)="onBackButtonClick()">BackToItemList</button>
+    </div>
+</div>

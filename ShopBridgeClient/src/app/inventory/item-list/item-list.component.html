@@ -1,0 +1,42 @@
+<div class="center">
+    <h3>Add items to the Inventory!</h3>
+    <form #addItemForm="ngForm" (ngSubmit)="addItem()">
+        <div>
+            <table>
+                <tr>
+                    <td class="bold"><label>Name</label></td>
+                    <td>:&nbsp;&nbsp;<input type="text" required id="itemName" name="itemName" [(ngModel)]="addedItem.name" /></td>
+                </tr>
+                <tr>
+                    <td class="bold"><label>Price</label></td>
+                    <td>:&nbsp;&nbsp;<input type="text" required id="itemPrice" name="itemPrice" [(ngModel)]="addedItem.price" min="1" /></td>
+                </tr>
+                <tr>
+                    <td class="bold"><label>Description</label></td>
+                    <td>:&nbsp;&nbsp;<input type="text" required id="itemDescription" name="itemDescription" [(ngModel)]="addedItem.description" /></td>
+                </tr>
+                <tr>
+                    <td class="button"><input type="submit" value="Add Item" /></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Remove</th>
+                </tr>
+                <tr *ngFor="let item of items">
+                    <td>{{item.name}} </td>
+                    <td><a [routerLink]="['/item', item.id]">{{item.id}}</a></td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.price}}</td>
+                    <td><input type="button" value="Remove" (click)="removeItem(item)" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

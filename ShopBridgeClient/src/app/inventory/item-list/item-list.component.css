@@ -1,0 +1,19 @@
+.center {
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.button {
+    position: relative;
+    left: 50%;
+}
