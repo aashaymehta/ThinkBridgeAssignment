@@ -61,7 +61,10 @@ export class ItemListComponent implements OnInit {
   }
 
   isItemListEmpty(): boolean {
-    return this.items.length === 0;
+    if (this.items == null || this.items.length === 0){
+      return true;
+    }
+    return false;
   }
 
 }
