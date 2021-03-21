@@ -21,7 +21,7 @@
             </table>
         </div>
         <div>
-            <table>
+            <table *ngIf="!isItemListEmpty()">
                 <tr>
                     <th>Name</th>
                     <th>Id</th>
@@ -38,5 +38,6 @@
                 </tr>
             </table>
         </div>
+        <div *ngIf="error">{{error}}</div>
     </form>
 </div>

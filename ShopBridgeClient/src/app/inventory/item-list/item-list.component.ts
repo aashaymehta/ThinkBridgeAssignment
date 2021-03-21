@@ -12,7 +12,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild('addItem')
   addItemForm: NgForm;
   addedItem: Item;
-
+  error: string;
   items: Item[];
   constructor(
               private inventoryService: InventoryService) {
@@ -31,6 +31,7 @@ export class ItemListComponent implements OnInit {
   }
 
   addItem(){
+    this.error = '';
     this.inventoryService.addItem(this.addedItem).subscribe(data => {
       if (data.addedItemId !== 0){
         this.addedItem.id = data.addedItemId;
@@ -41,17 +42,26 @@ export class ItemListComponent implements OnInit {
           price: '',
           description: ''
         };
+      } else {
+        this.error = data.errorMessage;
       }
     });
   }
 
   removeItem(item: Item){
+    this.error = '';
     this.inventoryService.deleteItem(item.id).subscribe(data => {
       if (data.errorMessage == null){
         const index = this.items.findIndex(x => x.id === item.id);
         this.items.splice(index, 1);
+      } else {
+        this.error = data.errorMessage;
       }
     });
+  }
+
+  isItemListEmpty(): boolean {
+    return this.items.length === 0;
   }
 
 }
