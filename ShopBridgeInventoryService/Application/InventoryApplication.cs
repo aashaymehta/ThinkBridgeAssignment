@@ -58,6 +58,13 @@ namespace ShopBridge.Inventory.Application
                 }
                 var item = await _inventoryRepository.GetItemById(itemId);
 
+                if (item == null)
+                {
+                    return new GetItemByIdResponse()
+                    {
+                        ErrorMessage = "The item with specified id could not be found!"
+                    };
+                }
                 return new GetItemByIdResponse()
                 {
                     Item = new ItemDto()
@@ -130,8 +137,12 @@ namespace ShopBridge.Inventory.Application
                     throw new Exception("Item id is not valid !");
                 }
 
-                await _inventoryRepository.RemoveItem(itemId);
-                return new RemoveItemResponse();
+                var result = await _inventoryRepository.RemoveItem(itemId);
+                return result ? new RemoveItemResponse():
+                new RemoveItemResponse()
+                {
+                    ErrorMessage = "The item with the specified id could not be removed!"
+                };
             }
             catch (Exception ex)
             {

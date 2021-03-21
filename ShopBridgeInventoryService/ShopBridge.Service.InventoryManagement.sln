@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Inventory.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Inventory.PersistenceContract", "PersistenceContract\ShopBridge.Inventory.PersistenceContract.csproj", "{91319D7C-E715-475F-967F-AB611798B42F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopBridge.Inventory.UnitTest", "UnitTest\ShopBridge.Inventory.UnitTest.csproj", "{153170F3-27A5-43DF-9553-7F79DB8B57B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{91319D7C-E715-475F-967F-AB611798B42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91319D7C-E715-475F-967F-AB611798B42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91319D7C-E715-475F-967F-AB611798B42F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153170F3-27A5-43DF-9553-7F79DB8B57B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153170F3-27A5-43DF-9553-7F79DB8B57B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153170F3-27A5-43DF-9553-7F79DB8B57B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153170F3-27A5-43DF-9553-7F79DB8B57B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,7 +35,7 @@ namespace ShopBridge.Inventory.Persistence
             }
         }
 
-        public async Task RemoveItem(string itemId)
+        public async Task<bool> RemoveItem(string itemId)
         {
             using (var inventoryDataContext = new InventoryDataContext())
             {
@@ -44,8 +44,11 @@ namespace ShopBridge.Inventory.Persistence
                 {
                     inventoryDataContext.Items.Remove(itemToBeDeleted);
                     await inventoryDataContext.SaveChangesAsync();
+                    return true;
                 }
-                await Task.FromResult(0);
+
+                return false;
+                // await Task.FromResult(0);
             }
         }
     }
