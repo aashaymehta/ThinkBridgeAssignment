@@ -22,10 +22,16 @@ export class InventoryService {
 
   public addItem(item: Item): Observable<any> {
     const body = '{ \"item\": ' + JSON.stringify(item) + '}';
-    console.log(body);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers };
     return this.http.post(this.baseUrl + '/addItem', body, options);
+  }
+
+  public updateItem(item: Item): Observable<any> {
+    const body = '{ \"item\": ' + JSON.stringify(item) + '}';
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers };
+    return this.http.post(this.baseUrl + '/updateItem', body, options);
   }
 
   public deleteItem(itemId: string): Observable<any> {

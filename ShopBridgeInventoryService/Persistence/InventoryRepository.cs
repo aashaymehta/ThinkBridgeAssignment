@@ -29,9 +29,27 @@ namespace ShopBridge.Inventory.Persistence
         {
             using (var inventoryDataContext = new InventoryDataContext())
             {
-                await inventoryDataContext.Items.AddAsync(item);
-                await inventoryDataContext.SaveChangesAsync();
-                return item.Id;
+                 await inventoryDataContext.Items.AddAsync(item);
+                 await inventoryDataContext.SaveChangesAsync();
+                 return item.Id;
+            }
+        }
+
+        public async Task<bool> UpdateItem(Item item)
+        {
+            using (var inventoryDataContext = new InventoryDataContext())
+            {
+                var itemToBeUpdated = await inventoryDataContext.Items.FirstOrDefaultAsync(x => x.Id == item.Id);
+                if (itemToBeUpdated != null)
+                {
+                    itemToBeUpdated.Price = item.Price;
+                    itemToBeUpdated.Name = item.Name;
+                    itemToBeUpdated.Description = item.Description;
+                    await inventoryDataContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
             }
         }
 
@@ -48,7 +66,6 @@ namespace ShopBridge.Inventory.Persistence
                 }
 
                 return false;
-                // await Task.FromResult(0);
             }
         }
     }

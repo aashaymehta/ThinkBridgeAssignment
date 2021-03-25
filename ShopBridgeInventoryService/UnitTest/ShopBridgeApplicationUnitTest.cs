@@ -16,7 +16,6 @@ namespace ShopBridge.Inventory.UnitTest
     {
         private InventoryApplication _inventoryApplication;
         private Mock<IInventoryRepository> _mockInventoryRepositoryFactory;
-        //private IMapper _mapper;
 
         [TestInitialize]
         public void Initialize()
@@ -103,9 +102,8 @@ namespace ShopBridge.Inventory.UnitTest
         public async Task GetItemById_ItemNotFound()
         {
             // Arrange
-            Item item = null;
             _mockInventoryRepositoryFactory.Setup(x => x.GetItemById(It.IsAny<string>()))
-                .ReturnsAsync(item);
+                .ReturnsAsync((Item) null);
             // Act
             var getItemResult = await _inventoryApplication.GetItemById("100")
                 .ConfigureAwait(false);
@@ -193,6 +191,57 @@ namespace ShopBridge.Inventory.UnitTest
             // Assert
             addItemResult.Should().NotBeNull();
             addItemResult.ErrorMessage.Should().NotBeEmpty();
+
+        }
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        public async Task UpdateItem_ItemUpdated()
+        {
+            // Arrange
+            var updateItemRequest = new UpdateItemRequest()
+            {
+                Item = new ItemDto()
+                {
+                    Id = "100",
+                    Name = "Item1",
+                    Price = "151.11",
+                    Description = "Item1 description"
+                }
+            };
+            _mockInventoryRepositoryFactory.Setup(x => x.UpdateItem(It.IsAny<Item>())).ReturnsAsync(true);
+            // Act
+            var removeItemResult = await _inventoryApplication.UpdateItem(updateItemRequest)
+                .ConfigureAwait(false);
+
+            // Assert
+            removeItemResult.Should().NotBeNull();
+            removeItemResult.ErrorMessage.Should().BeNull();
+
+        }
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        public async Task UpdateItem_ItemNotUpdated()
+        {
+            // Arrange
+            var updateItemRequest = new UpdateItemRequest()
+            {
+                Item = new ItemDto()
+                {
+                    Id = "100",
+                    Name = "Item1 updated"
+                }
+            };
+            _mockInventoryRepositoryFactory.Setup(x => x.UpdateItem(It.IsAny<Item>()))
+                .ReturnsAsync(false);
+            // Act
+            var updateItemResponse = await _inventoryApplication.UpdateItem(updateItemRequest)
+                .ConfigureAwait(false);
+
+            // Assert
+            updateItemResponse.Should().NotBeNull();
+            updateItemResponse.ErrorMessage.Should().NotBeEmpty();
 
         }
     }

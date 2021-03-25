@@ -16,7 +16,8 @@
                     <td>:&nbsp;&nbsp;<input type="text" required id="itemDescription" name="itemDescription" [(ngModel)]="addedItem.description" /></td>
                 </tr>
                 <tr>
-                    <td class="button"><input type="submit" value="Add Item" /></td>
+                    <td class="button"><input type="submit" [disabled]='isEdited' value="Add Item" /></td>
+                    <td class="button"><input type="button" [disabled]='!isEdited' value="Update Item" (click)="updateItem()" /></td>
                 </tr>
             </table>
         </div>
@@ -27,6 +28,7 @@
                     <th>Id</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>Edit</th>
                     <th>Remove</th>
                 </tr>
                 <tr *ngFor="let item of items">
@@ -34,6 +36,7 @@
                     <td><a [routerLink]="['/item', item.id]">{{item.id}}</a></td>
                     <td>{{item.description}}</td>
                     <td>{{item.price}}</td>
+                    <td><input type="button" value="Edit" (click)="editItem(item)" /></td>
                     <td><input type="button" value="Remove" (click)="removeItem(item)" /></td>
                 </tr>
             </table>

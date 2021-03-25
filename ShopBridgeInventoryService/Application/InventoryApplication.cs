@@ -89,7 +89,7 @@ namespace ShopBridge.Inventory.Application
         {
             try
             {
-                Validate(request);
+                Validate(request.Item);
                 var itemToBeAdded = new Item()
                 {
                     Name = request.Item.Name,
@@ -111,18 +111,45 @@ namespace ShopBridge.Inventory.Application
             }
         }
 
-        private static void Validate(AddItemRequest request)
+        public async Task<UpdateItemResponse> UpdateItem(UpdateItemRequest request)
         {
-            if (request == null || request.Item == null ||
-                string.IsNullOrEmpty(request.Item.Name) ||
-                string.IsNullOrEmpty(request.Item.Name) ||
-                string.IsNullOrEmpty(request.Item.Price) ||
-                string.IsNullOrEmpty(request.Item.Description))
+            try
+            {
+                Validate(request.Item);
+                var itemToBeUpdated = new Item()
+                {
+                    Id = Convert.ToInt32(request.Item.Id),
+                    Name = request.Item.Name,
+                    Description = request.Item.Description,
+                    Price = Convert.ToDecimal(request.Item.Price)
+                };
+                var result = await _inventoryRepository.UpdateItem(itemToBeUpdated);
+                return result ? new UpdateItemResponse() : 
+                    new UpdateItemResponse()
+                    {
+                        ErrorMessage = "The item with the specified id could not be updated!"
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new UpdateItemResponse()
+                {
+                    ErrorMessage = ex.Message
+                };
+            }
+        }
+
+        private static void Validate(ItemDto item)
+        {
+            if (item == null ||
+                string.IsNullOrEmpty(item.Name) ||
+                string.IsNullOrEmpty(item.Price) ||
+                string.IsNullOrEmpty(item.Description))
             {
                 throw new Exception("Missing params in AddItemRequest !");
             }
 
-            if (!decimal.TryParse(request.Item.Price, out _))
+            if (!decimal.TryParse(item.Price, out _))
             {
                 throw new Exception("Item price is not valid !");
             }

@@ -40,6 +40,14 @@ namespace ShopBridge.Inventory.Service.Controllers
             return BuildResponse(result);
         }
 
+        [HttpPost]
+        [Route("updateItem")]
+        public async Task<IActionResult> UpdateItem([FromBody] UpdateItemRequest request)
+        {
+            var result = await _inventoryApplication.UpdateItem(request).ConfigureAwait(false);
+            return BuildResponse(result);
+        }
+
         [HttpDelete]
         [Route("removeItem")]
         public async Task<IActionResult> RemoveItem(string itemId)

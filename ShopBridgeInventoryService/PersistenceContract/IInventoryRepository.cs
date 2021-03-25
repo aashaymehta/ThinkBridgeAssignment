@@ -12,6 +12,8 @@ namespace ShopBridge.Inventory.PersistenceContract
 
         Task<int> AddItem(Item request);
 
+        Task<bool> UpdateItem(Item request);
+
         Task<bool> RemoveItem(string itemId);
     }
 }

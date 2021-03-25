@@ -14,6 +14,7 @@ export class ItemListComponent implements OnInit {
   addedItem: Item;
   error: string;
   items: Item[];
+  isEdited: boolean;
   constructor(
               private inventoryService: InventoryService) {
                 this.addedItem = {
@@ -48,6 +49,22 @@ export class ItemListComponent implements OnInit {
     });
   }
 
+  updateItem() {
+    this.error = '';
+    this.inventoryService.updateItem(this.addedItem).subscribe(data => {
+      if (data.errorMessage == null){
+        this.addedItem = {
+          id: '',
+          name: '',
+          price: '',
+          description: ''
+        };
+      } else {
+        this.error = data.errorMessage;
+      }
+  });
+}
+
   removeItem(item: Item){
     this.error = '';
     this.inventoryService.deleteItem(item.id).subscribe(data => {
@@ -58,6 +75,12 @@ export class ItemListComponent implements OnInit {
         this.error = data.errorMessage;
       }
     });
+  }
+
+  editItem(item: Item){
+    this.error = '';
+    this.addedItem = item;
+    this.isEdited = true;
   }
 
   isItemListEmpty(): boolean {

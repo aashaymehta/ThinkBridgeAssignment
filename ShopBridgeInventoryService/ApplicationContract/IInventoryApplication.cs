@@ -10,6 +10,8 @@ namespace ShopBridge.Inventory.ApplicationContract
 
         Task<AddItemResponse> AddItem(AddItemRequest request);
 
+        Task<UpdateItemResponse> UpdateItem(UpdateItemRequest request);
+
         Task<RemoveItemResponse> RemoveItem(string itemId);
     }
 }
