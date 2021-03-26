@@ -4,6 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\MyGit\ThinkBridgeAssignment\ShopBridgeInventoryService\Service\ShopBridge.Inventory.Service.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.1" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ApplicationContract\ShopBridge.Inventory.ApplicationContract.csproj" />
     <ProjectReference Include="..\Application\ShopBridge.Inventory.Application.csproj" />
