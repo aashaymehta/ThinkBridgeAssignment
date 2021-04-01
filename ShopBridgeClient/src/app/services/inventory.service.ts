@@ -31,7 +31,7 @@ export class InventoryService {
     const body = '{ \"item\": ' + JSON.stringify(item) + '}';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers };
-    return this.http.post(this.baseUrl + '/updateItem', body, options);
+    return this.http.put(this.baseUrl + '/updateItem', body, options);
   }
 
   public deleteItem(itemId: string): Observable<any> {

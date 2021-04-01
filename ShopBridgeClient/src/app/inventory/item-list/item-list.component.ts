@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InventoryService } from 'src/app/services/inventory.service';
 import {Item } from '../../models/Item';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-item-list',
@@ -9,8 +8,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-  @ViewChild('addItem')
-  addItemForm: NgForm;
   addedItem: Item;
   error: string;
   items: Item[];

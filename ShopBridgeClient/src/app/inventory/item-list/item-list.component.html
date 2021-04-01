@@ -1,6 +1,6 @@
 <div class="center">
     <h3>Add items to the Inventory!</h3>
-    <form #addItemForm="ngForm" (ngSubmit)="addItem()">
+    <form>
         <div>
             <table>
                 <tr>
@@ -16,7 +16,7 @@
                     <td>:&nbsp;&nbsp;<input type="text" required id="itemDescription" name="itemDescription" [(ngModel)]="addedItem.description" /></td>
                 </tr>
                 <tr>
-                    <td class="button"><input type="submit" [disabled]='isEdited' value="Add Item" /></td>
+                    <td class="button"><input type="submit" [disabled]='isEdited' value="Add Item" (click)="addItem()" /></td>
                     <td class="button"><input type="button" [disabled]='!isEdited' value="Update Item" (click)="updateItem()" /></td>
                 </tr>
             </table>

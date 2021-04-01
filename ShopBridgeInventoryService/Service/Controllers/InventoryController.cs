@@ -66,7 +66,7 @@ namespace ShopBridge.Inventory.Service.Controllers
         /// </summary>
         /// <param name="request">UpdateItemRequest having the item details to be updated</param>
         /// <returns>UpdateItemResponse</returns>
-        [HttpPost]
+        [HttpPut]
         [Route("updateItem")]
         public async Task<IActionResult> UpdateItem([FromBody] UpdateItemRequest request)
         {
